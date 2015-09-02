@@ -30,6 +30,40 @@ public class Metadata : Equatable {
     self.title = title
     self.description = description
   }
+
+  func toRefract() -> [String:AnyObject] {
+    var refract = [String:AnyObject]()
+
+    if let id = id {
+      refract["id"] = id.toRefract()
+    }
+
+    if let reference = reference {
+      refract["ref"] = reference.toRefract()
+    }
+
+    if let classes = classes {
+      refract["classes"] = classes.toRefract()
+    }
+
+    if let prefix = prefix {
+      refract["prefix"] = prefix.toRefract()
+    }
+
+    if let namespace = namespace {
+      refract["namespace"] = namespace.toRefract()
+    }
+
+    if let title = classes {
+      refract["title"] = title.toRefract()
+    }
+
+    if let description = description {
+      refract["description"] = description.toRefract()
+    }
+
+    return refract
+  }
 }
 
 
@@ -75,6 +109,33 @@ public struct Link : Equatable {
     self.href = href
     self.prefix = prefix
     self.path = path
+  }
+
+  func toRefract() -> AnyObject {
+    if (prefix != nil) || (path != .All) {
+      var refract = [String:AnyObject]()
+
+      if let prefix = prefix {
+        refract["prefix"] = prefix
+      }
+
+      if path != .All {
+        switch path {
+        case .All:
+            break
+        case .Metadata:
+          refract["path"] = "meta"
+        case .Attributes:
+          refract["path"] = "attributes"
+        case .Content:
+          refract["path"] = "content"
+        }
+      }
+
+      return refract
+    }
+
+    return href
   }
 }
 

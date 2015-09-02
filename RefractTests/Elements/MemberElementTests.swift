@@ -16,4 +16,16 @@ class MemberElementTests: XCTestCase {
   func testValue() {
     XCTAssertEqual(element.value?.content, "value")
   }
+
+  func xtestToRefract() {
+    XCTAssertEqual(element.toRefract() as NSDictionary, [
+      "element": "member",
+      "meta": [:],
+      "attributes": [:],
+      "content": [
+        "key": "key",
+        "value": "value",
+      ],
+    ])
+  }
 }

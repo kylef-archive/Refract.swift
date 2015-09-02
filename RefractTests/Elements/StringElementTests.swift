@@ -12,4 +12,13 @@ class StringElementTests: XCTestCase {
   func testContent() {
     XCTAssertEqual(element.content, "value")
   }
+
+  func testToRefract() {
+    XCTAssertEqual(element.toRefract() as NSDictionary, [
+      "element": "string",
+      "meta": [:],
+      "attributes": [:],
+      "content": "value",
+    ])
+  }
 }

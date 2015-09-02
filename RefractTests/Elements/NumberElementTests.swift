@@ -22,4 +22,13 @@ class NumberElementTests: XCTestCase {
     let element = NumberElement(content: 5.0)
     XCTAssertEqual(element.content, Number.Double(5.0))
   }
+
+  func testToRefract() {
+    XCTAssertEqual(element.toRefract() as NSDictionary, [
+      "element": "number",
+      "meta": [:],
+      "attributes": [:],
+      "content": 5,
+    ])
+  }
 }

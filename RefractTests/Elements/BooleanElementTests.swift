@@ -12,4 +12,13 @@ class BooleanElementTests: XCTestCase {
   func testContent() {
     XCTAssertTrue(element.content!)
   }
+
+  func testToRefract() {
+    XCTAssertEqual(element.toRefract() as NSDictionary, [
+      "element": "boolean",
+      "meta": [:],
+      "attributes": [:],
+      "content": true,
+    ])
+  }
 }

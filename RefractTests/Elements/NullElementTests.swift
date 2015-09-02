@@ -12,4 +12,13 @@ class NullElementTests: XCTestCase {
   func testContent() {
     XCTAssertNil(element.content)
   }
+
+  func testToRefract() {
+    XCTAssertEqual(element.toRefract() as NSDictionary, [
+      "element": "null",
+      "meta": [:],
+      "attributes": [:],
+      "content": NSNull(),
+    ])
+  }
 }

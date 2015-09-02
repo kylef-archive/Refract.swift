@@ -30,6 +30,18 @@ public struct MemberElement<Key : Hashable, Value> : ElementType {
   public var value:Value? {
     return content?.value
   }
+
+  public func toRefract() -> [String:AnyObject] {
+    return [
+      "element": element,
+      "meta": metadata.toRefract(),
+      "attributes": attributes.toRefract(),
+      "content": [
+        "key": key as? AnyObject ?? NSNull(),
+        "value": value as? AnyObject ?? NSNull(),
+      ],
+    ]
+  }
 }
 
 public func ==<Key:Hashable, Value:Equatable>(lhs:MemberElement<Key, Value>, rhs:MemberElement<Key, Value>) -> Bool {

@@ -1,6 +1,15 @@
 public enum Number : Equatable {
   case Integer(Swift.Int)
   case Double(Swift.Double)
+
+  var value:Any {
+    switch self {
+    case .Integer(let value):
+      return value
+    case .Double(let value):
+      return value
+    }
+  }
 }
 
 public func ==(lhs:Number, rhs:Number) -> Bool {
@@ -43,6 +52,15 @@ public struct NumberElement : ElementType, Equatable {
     if let content = content {
       self.content = .Double(content)
     }
+  }
+
+  public func toRefract() -> [String:AnyObject] {
+    return [
+      "element": element,
+      "meta": metadata.toRefract(),
+      "attributes": attributes.toRefract(),
+      "content": content?.value as? AnyObject ?? NSNull()
+    ]
   }
 }
 
