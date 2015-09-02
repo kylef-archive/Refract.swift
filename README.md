@@ -8,7 +8,11 @@ This is still under development.
 
 ## Installation
 
-This is still under development.
+[CocoaPods](http://cocoapods.org/) is the recommended installation method.
+
+```ruby
+pod 'Refract', :git => 'https://github.com/kylef/Refract.swift'
+```
 
 ## License
 

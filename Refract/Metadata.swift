@@ -1,0 +1,144 @@
+/// Containing meta elements for an element
+public class Metadata : Equatable {
+  /// Unique Identifier, MUST be unique throughout the document
+  public let id:StringElement?
+
+  /// Link to referenced element or type
+  public let reference:Link?
+
+  /// Array of classifications for given element
+  public let classes:ArrayElement<StringElement>?
+
+  /// Prefix in which element MAY be found
+  public let prefix:StringElement?
+
+  /// Include elements from given namespaces or prefix elements from given namespace
+  public let namespace:Link?
+
+  /// Human-readable title of element
+  public let title:StringElement?
+
+  /// Human-readable description of element
+  public let description:StringElement?
+
+  public init(id:StringElement? = nil, reference:Link? = nil, classes:ArrayElement<StringElement>? = nil, prefix:StringElement? = nil, namespace:Link? = nil, title:StringElement? = nil, description:StringElement? = nil) {
+    self.id = id
+    self.reference = reference
+    self.classes = classes
+    self.prefix = prefix
+    self.namespace = namespace
+    self.title = title
+    self.description = description
+  }
+
+  func toRefract() -> [String:AnyObject] {
+    var refract = [String:AnyObject]()
+
+    if let id = id {
+      refract["id"] = id.toRefract()
+    }
+
+    if let reference = reference {
+      refract["ref"] = reference.toRefract()
+    }
+
+    if let classes = classes {
+      refract["classes"] = classes.toRefract()
+    }
+
+    if let prefix = prefix {
+      refract["prefix"] = prefix.toRefract()
+    }
+
+    if let namespace = namespace {
+      refract["namespace"] = namespace.toRefract()
+    }
+
+    if let title = classes {
+      refract["title"] = title.toRefract()
+    }
+
+    if let description = description {
+      refract["description"] = description.toRefract()
+    }
+
+    return refract
+  }
+}
+
+
+public func ==(lhs:Metadata, rhs:Metadata) -> Bool {
+  return (
+    lhs.id == rhs.id &&
+    lhs.reference == rhs.reference &&
+    lhs.classes ?? ArrayElement() == rhs.classes ?? ArrayElement() &&
+    lhs.prefix == rhs.prefix &&
+    lhs.namespace == rhs.namespace &&
+    lhs.title == rhs.title &&
+    lhs.description == rhs.description
+  )
+}
+
+/// Path of referenced element to transclude
+public enum LinkPath {
+  case All
+
+  /// The meta data of the referenced element
+  case Metadata
+
+  /// The attributes of the referenced element
+  case Attributes
+
+  /// The content of the referenced element
+  case Content
+}
+
+
+/// A link is an object for providing URLs to local elements, prefixed elements, and remote elements or documents.
+public struct Link : Equatable {
+  /// URL or ID of element in prefixed namespace
+  public var href:String
+
+  /// Prefix of namespace
+  public var prefix:String?
+
+  /// Path of referenced element to transclude
+  public var path:LinkPath
+
+  public init(href:String, prefix:String? = nil, path:LinkPath = .All) {
+    self.href = href
+    self.prefix = prefix
+    self.path = path
+  }
+
+  func toRefract() -> AnyObject {
+    if (prefix != nil) || (path != .All) {
+      var refract = [String:AnyObject]()
+
+      if let prefix = prefix {
+        refract["prefix"] = prefix
+      }
+
+      if path != .All {
+        switch path {
+        case .All:
+            break
+        case .Metadata:
+          refract["path"] = "meta"
+        case .Attributes:
+          refract["path"] = "attributes"
+        case .Content:
+          refract["path"] = "content"
+        }
+      }
+
+      return refract
+    }
+
+    return href
+  }
+}
+
+public func ==(lhs:Link, rhs:Link) -> Bool {
+  return lhs.href == rhs.href && lhs.prefix == rhs.prefix && lhs.path == rhs.path
+}
