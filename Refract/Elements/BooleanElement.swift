@@ -1,4 +1,4 @@
-public struct BooleanElement : ElementType {
+public struct BooleanElement : ElementType, Equatable {
   public typealias Type = Bool
 
   public var element:String { return "boolean" }
@@ -11,4 +11,12 @@ public struct BooleanElement : ElementType {
     self.attributes = attributes ?? AttributeType()
     self.content = content
   }
+}
+
+public func ==(lhs:BooleanElement, rhs:BooleanElement) -> Bool {
+  return (
+    lhs.metadata == rhs.metadata &&
+    lhs.attributes == rhs.attributes &&
+    lhs.content == rhs.content
+  )
 }

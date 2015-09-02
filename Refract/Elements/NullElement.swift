@@ -1,4 +1,4 @@
-public struct NullElement : ElementType {
+public struct NullElement : ElementType, Equatable {
   public typealias Type = Void
 
   public var element:String { return "null" }
@@ -10,4 +10,11 @@ public struct NullElement : ElementType {
     self.metadata = metadata ?? Metadata()
     self.attributes = attributes ?? AttributeType()
   }
+}
+
+public func ==(lhs:NullElement, rhs:NullElement) -> Bool {
+  return (
+    lhs.metadata == rhs.metadata &&
+    lhs.attributes == rhs.attributes
+  )
 }

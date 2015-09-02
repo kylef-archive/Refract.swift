@@ -31,3 +31,12 @@ public struct MemberElement<Key : Hashable, Value> : ElementType {
     return content?.value
   }
 }
+
+public func ==<Key:Hashable, Value:Equatable>(lhs:MemberElement<Key, Value>, rhs:MemberElement<Key, Value>) -> Bool {
+  return (
+    lhs.metadata == rhs.metadata &&
+    lhs.attributes == rhs.attributes &&
+    lhs.key == rhs.key &&
+    lhs.value == rhs.value
+  )
+}

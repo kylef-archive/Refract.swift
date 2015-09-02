@@ -1,5 +1,5 @@
 /// Containing meta elements for an element
-public class Metadata {
+public class Metadata : Equatable {
   /// Unique Identifier, MUST be unique throughout the document
   public let id:StringElement?
 
@@ -33,6 +33,18 @@ public class Metadata {
 }
 
 
+public func ==(lhs:Metadata, rhs:Metadata) -> Bool {
+  return (
+    lhs.id == rhs.id &&
+    lhs.reference == rhs.reference &&
+    lhs.classes ?? ArrayElement() == rhs.classes ?? ArrayElement() &&
+    lhs.prefix == rhs.prefix &&
+    lhs.namespace == rhs.namespace &&
+    lhs.title == rhs.title &&
+    lhs.description == rhs.description
+  )
+}
+
 /// Path of referenced element to transclude
 public enum LinkPath {
   case All
@@ -49,7 +61,7 @@ public enum LinkPath {
 
 
 /// A link is an object for providing URLs to local elements, prefixed elements, and remote elements or documents.
-public struct Link {
+public struct Link : Equatable {
   /// URL or ID of element in prefixed namespace
   public var href:String
 
@@ -64,4 +76,8 @@ public struct Link {
     self.prefix = prefix
     self.path = path
   }
+}
+
+public func ==(lhs:Link, rhs:Link) -> Bool {
+  return lhs.href == rhs.href && lhs.prefix == rhs.prefix && lhs.path == rhs.path
 }

@@ -9,4 +9,7 @@ public protocol ElementType {
   var content:Type? { get }
 }
 
-public class AttributeType { /* TODO */ }
+public class AttributeType : Equatable { /* TODO */ }
+public func ==(lhs:AttributeType, rhs:AttributeType) -> Bool {
+  return true
+}

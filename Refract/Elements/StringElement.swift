@@ -1,4 +1,4 @@
-public struct StringElement : ElementType {
+public struct StringElement : ElementType, Equatable {
   public typealias Type = String
 
   public var element:String { return "string" }
@@ -11,4 +11,12 @@ public struct StringElement : ElementType {
     self.attributes = attributes ?? AttributeType()
     self.content = content
   }
+}
+
+public func ==(lhs:StringElement, rhs:StringElement) -> Bool {
+  return (
+    lhs.metadata == rhs.metadata &&
+    lhs.attributes == rhs.attributes &&
+    lhs.content == rhs.content
+  )
 }

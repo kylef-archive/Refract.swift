@@ -13,3 +13,10 @@ public struct ArrayElement<Element : ElementType> : ElementType {
   }
 }
 
+public func ==<T:Equatable>(lhs:ArrayElement<T>, rhs:ArrayElement<T>) -> Bool {
+  return (
+    lhs.metadata == rhs.metadata &&
+    lhs.attributes == rhs.attributes &&
+    lhs.content ?? [] == rhs.content ?? []
+  )
+}

@@ -14,7 +14,7 @@ public func ==(lhs:Number, rhs:Number) -> Bool {
   }
 }
 
-public struct NumberElement : ElementType {
+public struct NumberElement : ElementType, Equatable {
   public typealias Type = Number
 
   public var element:String { return "number" }
@@ -44,4 +44,12 @@ public struct NumberElement : ElementType {
       self.content = .Double(content)
     }
   }
+}
+
+public func ==(lhs:NumberElement, rhs:NumberElement) -> Bool {
+  return (
+    lhs.metadata == rhs.metadata &&
+    lhs.attributes == rhs.attributes &&
+    lhs.content == rhs.content
+  )
 }
