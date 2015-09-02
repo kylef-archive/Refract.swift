@@ -15,4 +15,14 @@ class ObjectElementTests: XCTestCase {
     XCTAssertEqual(member?.key, "key")
     XCTAssertEqual(member?.value, "value")
   }
+
+  func testSubscriptKnownKey() {
+    let member = element["key"]
+    XCTAssertEqual(member?.value, "value")
+  }
+
+  func testSubscriptUnknownKey() {
+    let member = element["key2"]
+    XCTAssertNil(member)
+  }
 }

@@ -11,4 +11,10 @@ public struct ObjectElement<Key: Hashable, Value> : ElementType {
     self.attributes = attributes ?? AttributeType()
     self.content = content
   }
+
+  public subscript(index: Key) -> MemberElement<Key, Value>? {
+    get {
+      return content?.filter { $0.key == index }.first
+    }
+  }
 }
